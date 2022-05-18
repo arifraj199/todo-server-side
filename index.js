@@ -25,6 +25,13 @@ async function run(){
             res.send(result);
 
         })
+
+        app.get("/mytask",async(req,res)=>{
+            const query = {};
+            const cursor = todoCollection.find(query);
+            const result = await cursor.toArray(cursor);
+            res.send(result);
+        })
     }
     finally{}
 }
