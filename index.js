@@ -1,6 +1,6 @@
 const express = require('express');
 const app = express();
-const { MongoClient, ServerApiVersion } = require('mongodb');
+const { MongoClient, ServerApiVersion,ObjectId } = require('mongodb');
 const port = process.env.PORT || 5000;
 const cors = require('cors');
 require('dotenv').config();
@@ -32,6 +32,13 @@ async function run(){
             const result = await cursor.toArray(cursor);
             res.send(result);
         })
+
+        app.delete("/mytask/:id", async (req, res) => {
+            const id = req.params.id;
+            const query = { _id: ObjectId(id) };
+            const result = await todoCollection.deleteOne(query);
+            res.send(result);
+        });
     }
     finally{}
 }
